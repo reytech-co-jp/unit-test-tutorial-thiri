@@ -1,4 +1,4 @@
-name: Test & Checkstyle & SpotBugs CI
+name: Test SpotBugs CI
 
 on:
   workflow_dispatch:
