@@ -54,4 +54,11 @@ public class AnimeService {
             throw new ResourceNotFoundException("resource not found");
         }
     }
+
+    public double divide(double left, double right) {
+        if (right == 0) {
+            throw new IllegalArgumentException("right cannot be zero");
+        }
+        return left / right;
+    }
 }
