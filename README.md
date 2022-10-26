@@ -1,4 +1,4 @@
-# unit-test-tutorial
+[![codecov](https://codecov.io/github/reytech-co-jp/unit-test-tutorial-thiri/branch/feature/coverage_report/graph/badge.svg?token=326UE8FZE9)](https://codecov.io/github/reytech-co-jp/unit-test-tutorial-thiri)
 ## 概要
 このプロジェクトはアニメのデータの登録、検索、更新、削除をするレポジトリです。
 
