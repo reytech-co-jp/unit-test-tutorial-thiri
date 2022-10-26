@@ -57,7 +57,7 @@ public class AnimeService {
 
     public double divide(double left, double right) {
         if (right == 0) {
-            throw new IllegalArgumentException("right cannot be zero");
+            throw new IllegalArgumentException("right should not be zero");
         }
         return left / right;
     }
