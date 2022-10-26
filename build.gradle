@@ -36,3 +36,7 @@ jacocoTestReport {
     }
     finalizedBy(tasks.jacocoToCobertura)
 }
+jacocoToCobertura {
+    inputFile.set(file("$buildDir/reports/jacoco/test/jacocoTestReport.xml"))
+    outputFile.set(file("$buildDir/cobertura.xml"))
+}
