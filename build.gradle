@@ -4,6 +4,7 @@ plugins {
     id 'java'
     id 'jacoco'
     id "net.razvan.jacoco-to-cobertura" version "1.0.2"
+    id 'com.github.spotbugs' version '5.0.6'
 }
 
 group = 'com.example'
@@ -21,6 +22,7 @@ dependencies {
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'mysql:mysql-connector-java'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    spotbugsPlugins "com.mebigfatguy.fb-contrib:fb-contrib:7.4.7"
 }
 
 tasks.named('test') {
@@ -36,7 +38,16 @@ jacocoTestReport {
     }
     finalizedBy(tasks.jacocoToCobertura)
 }
-jacocoToCobertura {
-    inputFile.set(file("$buildDir/reports/jacoco/test/jacocoTestReport.xml"))
-    outputFile.set(file("$buildDir/cobertura.xml"))
+
+spotbugs {
+    spotbugsTest.enabled = false
+    excludeFilter = file("config/spotbugs/exclude.xml")
+}
+
+spotbugsMain {
+    reports {
+        html {
+            enabled = true
+        }
+    }
 }

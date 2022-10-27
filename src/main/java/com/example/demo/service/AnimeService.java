@@ -18,8 +18,7 @@ public class AnimeService {
     }
 
     public List<Anime> getAllAnime() {
-        List<Anime> animeList = animeMapper.findAll();
-        return animeList;
+        return animeMapper.findAll();
     }
 
     public Anime getAnime(Integer id) {
@@ -53,12 +52,5 @@ public class AnimeService {
         } else {
             throw new ResourceNotFoundException("resource not found");
         }
-    }
-
-    public double divide(double left, double right) {
-        if (right == 0) {
-            throw new IllegalArgumentException("right cannot be zero");
-        }
-        return left / right;
     }
 }
