@@ -1,8 +1,2 @@
-coverage:
-  status:
-    project:
-      default:
-        target: 100%
-        threshold: 1%
 codecov:
   branch: main # set new Default branch
