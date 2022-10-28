@@ -43,14 +43,21 @@ jobs:
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
-
-      - name: Slack Notification
-        uses: rtCamp/action-slack-notify@v2
-        env:
-          SLACK_CHANNEL: general
-          SLACK_COLOR: ${{ job.status }} # or a specific color like 'good' or '#ff00ff'
-          SLACK_ICON: https://github.com/rtCamp.png?size=48
-          SLACK_MESSAGE: 'Post Content :rocket:'
-          SLACK_TITLE: Post Title
-          SLACK_USERNAME: rtCamp
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          directory: ./coverage/reports/
+          fail_ci_if_error: false
+          files: ./coverage1.xml,./coverage2.xml
+          name: codecov-umbrella
+          path_to_write_report: ./coverage/codecov_report.txt
+#        TO DO CIを1つにする時、失敗した時送る処理
+#      - name: Slack Notification
+#        uses: rtCamp/action-slack-notify@v2
+#        env:
+#          SLACK_CHANNEL: general
+#          SLACK_COLOR: ${{ job.status }} # or a specific color like 'good' or '#ff00ff'
+#          SLACK_ICON: https://github.com/rtCamp.png?size=48
+#          SLACK_MESSAGE: 'Post Content :rocket:'
+#          SLACK_TITLE: Post Title
+#          SLACK_USERNAME: rtCamp
+#          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
