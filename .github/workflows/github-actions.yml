@@ -45,9 +45,7 @@ jobs:
         uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          directory: ./coverage/reports/
           fail_ci_if_error: false
-          files: ./coverage1.xml,./coverage2.xml
           name: codecov-umbrella
           path_to_write_report: ./coverage/codecov_report.txt
 #        TO DO CIを1つにする時、失敗した時送る処理
