@@ -43,12 +43,7 @@ jobs:
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          files: lcov.info
-          fail_ci_if_error: false
-          name: codecov-umbrella
-          path_to_write_report: ./coverage/codecov_report.txt
+
 #        TO DO CIを1つにする時、失敗した時送る処理
 #      - name: Slack Notification
 #        uses: rtCamp/action-slack-notify@v2
