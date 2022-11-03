@@ -66,11 +66,8 @@ jobs:
         if: always()
 
       - name: Slack Notification
-        if: always()
+        if: failure()
         uses: rtCamp/action-slack-notify@v2
-        with:
-          status: ${{ job.status }}
-          notify_when: 'failure'
         env:
           SLACK_CHANNEL: general
           SLACK_COLOR: ${{ job.status }} # or a specific color like 'good' or '#ff00ff'
