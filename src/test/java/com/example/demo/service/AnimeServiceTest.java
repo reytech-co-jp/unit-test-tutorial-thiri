@@ -32,7 +32,7 @@ class AnimeServiceTest {
     public void アニメが全件取得できること() {
         doReturn(List.of(new Anime(1, "abc", "def"), new Anime(2, "ghi", "jkl"))).when(animeMapper).findAll();
         List<Anime> actual = animeService.getAllAnime();
-        assertThat(actual).isEqualTo(List.of(new Anime(1, "abc", "def"), new Anime(2, "ghi", "jkl")));
+        assertThat(actual).isEqualTo(List.of(new Anime(1, "abc!", "def"), new Anime(2, "ghi", "jkl")));
     }
 
     @Test

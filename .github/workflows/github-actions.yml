@@ -23,7 +23,9 @@ jobs:
         run: ./gradlew build
 
       - name: Test with Gradle
+        id: test
         run: ./gradlew test
+        if: always()
 
       - name: Publish Test Report
         uses: mikepenz/action-junit-report@v3
@@ -31,8 +33,26 @@ jobs:
         with:
           report_paths: '**/build/test-results/test/TEST-*.xml'
 
+      - name: Checkout
+        uses: actions/checkout@v2
+        if: always()
+
+      - name: Run check style
+        id: checkstyle
+        uses: nikitasavinov/checkstyle-action@master
+        if: always()
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          reporter: 'github-pr-check'
+          tool_name: 'testtool'
+          level: error
+          checkstyle_config: 'config/checkstyle/checkstyle.xml'
+          workdir: 'src/main'
+
       - name: Run SpotBugs
+        id: spotbugs
         run: ./gradlew spotbugsMain
+        if: always()
 
       - name: Upload SpotBugs Report
         uses: actions/upload-artifact@v1
@@ -43,15 +63,16 @@ jobs:
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
+        if: always()
 
-#        TO DO CIを1つにする時、失敗した時送る処理
-#      - name: Slack Notification
-#        uses: rtCamp/action-slack-notify@v2
-#        env:
-#          SLACK_CHANNEL: general
-#          SLACK_COLOR: ${{ job.status }} # or a specific color like 'good' or '#ff00ff'
-#          SLACK_ICON: https://github.com/rtCamp.png?size=48
-#          SLACK_MESSAGE: 'Post Content :rocket:'
-#          SLACK_TITLE: Post Title
-#          SLACK_USERNAME: rtCamp
-#          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+      - name: Slack Notification
+        if: steps.test.outcome != 'success' || steps.checkstyle.outcome != 'success' || steps.spotbugs.outcome != 'success'
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_CHANNEL: general
+          SLACK_COLOR: ${{ job.status }} # or a specific color like 'good' or '#ff00ff'
+          SLACK_ICON: https://github.com/rtCamp.png?size=48
+          SLACK_MESSAGE: 'Post Content :rocket:'
+          SLACK_TITLE: Post Title
+          SLACK_USERNAME: rtCamp
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
