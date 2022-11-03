@@ -1,4 +1,4 @@
-name: SpotBugs, Notify in Slack and Codecov CI
+name: Test Report, Checkstyle, SpotBugs, Notify in Slack and Codecov CI
 
 on:
   push:
