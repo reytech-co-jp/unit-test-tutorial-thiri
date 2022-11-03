@@ -1,2 +1,5 @@
 codecov:
   branch: main # set new Default branch
+comment:
+  require_head: no     # default yes
+  require_base: no     # default yes
