@@ -1,8 +1,8 @@
 anime:
   - id: 1
-    name: "abc"
-    genre: "def"
+    name: "Kill la Kill"
+    genre: "Action"
 
   - id: 2
-    name: "ghi"
-    genre: "jkl"
+    name: "Fairy Tail"
+    genre: "Adventure"
