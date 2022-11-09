@@ -2,6 +2,7 @@ package com.example.demo.mapper;
 
 import com.example.demo.entity.Anime;
 import com.github.database.rider.core.api.dataset.DataSet;
+import com.github.database.rider.core.api.dataset.ExpectedDataSet;
 import com.github.database.rider.spring.api.DBRider;
 import java.util.List;
 import java.util.Optional;
@@ -51,4 +52,10 @@ public class AnimeMapperTest {
         assertThat(anime).isEmpty();
     }
 
+    @Test
+    @DataSet(value = "anime.yml")
+    @ExpectedDataSet(value = "expectedAfterInsertAnime.yml", ignoreCols = "id")
+    void アニメが登録できること() {
+        animeMapper.createAnime(new Anime(3, "Gintama", "Comedy"));
+    }
 }
