@@ -25,23 +25,30 @@ public class AnimeMapperTest {
         assertThat(animeList)
                 .hasSize(2)
                 .contains(
-                        new Anime(1, "abc", "def"),
-                        new Anime(2, "ghi", "jkl")
+                        new Anime(1, "Kill la Kill", "Action"),
+                        new Anime(2, "Fairy Tail", "Adventure")
                 );
+    }
+
+    @Test
+    @DataSet(value = "empty.yml")
+    void アニメが存在しない場合取得できないこと(){
+        List<Anime> animeList = animeMapper.findAll();
+        assertThat(animeList).isEmpty();
     }
 
     @Test
     @DataSet(value = "anime.yml")
     void 引数のidに対応したアニメを取得できること() {
         Optional<Anime> anime = animeMapper.findById(1);
-        assertThat(anime).contains(new Anime(1, "abc", "def"));
+        assertThat(anime).contains(new Anime(1, "Kill la Kill", "Action"));
     }
 
     @Test
     @DataSet(value = "anime.yml")
     void 引数のidに対応したアニメが存在しない時_空のOptionalを取得すること() {
         Optional<Anime> anime = animeMapper.findById(3);
-        assertThat(anime).isEqualTo(Optional.empty());
+        assertThat(anime).isEmpty();
     }
 
 }
