@@ -58,4 +58,18 @@ public class AnimeMapperTest {
     void アニメが登録できること() {
         animeMapper.createAnime(new Anime(3, "Gintama", "Comedy"));
     }
+
+    @Test
+    @DataSet(value = "anime.yml")
+    @ExpectedDataSet(value = "expectedAfterUpdateAnime.yml")
+    void アニメが更新できること() {
+        animeMapper.updateAnime(new Anime(1, "No Game No Life", "Fantasy"));
+    }
+
+    @Test
+    @DataSet(value = "anime.yml")
+    @ExpectedDataSet(value = "expectedAfterDeleteAnime.yml")
+    void アニメが削除できること() {
+        animeMapper.deleteAnime(1);
+    }
 }
