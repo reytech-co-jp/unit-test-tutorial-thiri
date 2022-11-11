@@ -1,0 +1,9 @@
+anime:
+  - id: 1
+    name: "No Game No Life"
+    genre: "Fantasy"
+
+  - id: 2
+    name: "Fairy Tail"
+    genre: "Adventure"
+
