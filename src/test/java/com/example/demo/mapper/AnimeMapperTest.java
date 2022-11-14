@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,6 +67,7 @@ public class AnimeMapperTest {
         assertThat(gintamaAnime.getId()).isNotNull();
         animeMapper.createAnime(yourNameAnime);
         assertThat(yourNameAnime.getId()).isNotNull();
+        assertTrue(yourNameAnime.getId() > gintamaAnime.getId());
     }
 
     @Test
