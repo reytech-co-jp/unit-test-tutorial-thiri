@@ -56,7 +56,8 @@ public class AnimeMapperTest {
     @DataSet(value = "anime.yml")
     @ExpectedDataSet(value = "expectedAfterInsertAnime.yml", ignoreCols = "id")
     void アニメが登録できること() {
-        animeMapper.createAnime(new Anime(3, "Gintama", "Comedy"));
+        animeMapper.createAnime(new Anime("Gintama", "Comedy"));
+        animeMapper.createAnime(new Anime("Your Name", "Romantic Fantasy"));
     }
 
     @Test

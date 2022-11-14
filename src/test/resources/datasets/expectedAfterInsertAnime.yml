@@ -11,3 +11,7 @@ anime:
     name: "Gintama"
     genre: "Comedy"
 
+  - id: 4
+    name: "Your Name"
+    genre: "Romantic Fantasy"
+
