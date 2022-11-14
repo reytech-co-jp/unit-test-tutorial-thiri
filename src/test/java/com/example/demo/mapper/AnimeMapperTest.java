@@ -6,6 +6,7 @@ import com.github.database.rider.core.api.dataset.ExpectedDataSet;
 import com.github.database.rider.spring.api.DBRider;
 import java.util.List;
 import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
@@ -56,8 +57,14 @@ public class AnimeMapperTest {
     @DataSet(value = "anime.yml")
     @ExpectedDataSet(value = "expectedAfterInsertAnime.yml", ignoreCols = "id")
     void アニメが登録できること() {
-        animeMapper.createAnime(new Anime("Gintama", "Comedy"));
-        animeMapper.createAnime(new Anime("Your Name", "Romantic Fantasy"));
+        Anime gintamaAnime = new Anime("Gintama", "Comedy");
+        assertThat(gintamaAnime.getId()).isNull();
+        Anime yourNameAnime = new Anime("Your Name", "Romantic Fantasy");
+        assertThat(yourNameAnime.getId()).isNull();
+        animeMapper.createAnime(gintamaAnime);
+        assertThat(gintamaAnime.getId()).isNotNull();
+        animeMapper.createAnime(yourNameAnime);
+        assertThat(yourNameAnime.getId()).isNotNull();
     }
 
     @Test
