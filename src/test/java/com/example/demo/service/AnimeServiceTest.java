@@ -57,4 +57,18 @@ class AnimeServiceTest {
         verify(animeMapper).createAnime(any(Anime.class));
     }
 
+    @Test
+    public void アニメが更新できること() {
+        doReturn(Optional.of(new Anime(1, "abc", "def"))).when(animeMapper).findById(1);
+        animeService.updateAnime(1, "Your Name", "Romantic Fantasy");
+        verify(animeMapper).updateAnime(any(Anime.class));
+    }
+
+    @Test
+    public void アニメが削除できること() {
+        doReturn(Optional.of(new Anime(1, "abc", "def"))).when(animeMapper).findById(1);
+        animeService.deleteAnime(1);
+        verify(animeMapper).deleteAnime(1);
+    }
+
 }
