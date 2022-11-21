@@ -14,6 +14,8 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
@@ -65,10 +67,28 @@ class AnimeServiceTest {
     }
 
     @Test
+    public void アニメが更新できないときに例外をthrowすること() {
+        doReturn(Optional.empty()).when(animeMapper).findById(1);
+        Exception exception = assertThrows(ResourceNotFoundException.class, () -> {
+            animeService.updateAnime(1, "Your Name", "Romantic Fantasy");
+        });
+        assertEquals("resource not found", exception.getMessage());
+    }
+
+    @Test
     public void アニメが削除できること() {
         doReturn(Optional.of(new Anime(1, "abc", "def"))).when(animeMapper).findById(1);
         animeService.deleteAnime(1);
         verify(animeMapper).deleteAnime(1);
+    }
+
+    @Test
+    public void アニメが削除できないときに例外をthrowすること() {
+        doReturn(Optional.empty()).when(animeMapper).findById(1);
+        Exception exception = assertThrows(ResourceNotFoundException.class, () -> {
+            animeService.deleteAnime(1);
+        });
+        assertEquals("resource not found", exception.getMessage());
     }
 
 }
