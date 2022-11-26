@@ -1,8 +1,10 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.Anime;
+import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.service.AnimeService;
 import org.junit.jupiter.api.Test;
+import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -59,6 +61,8 @@ public class AnimeControllerTest {
 
         assertThat(response.getContentAsString()).isEqualTo(animeListJacksonTester.write(animeList).getJson());
 
+        JSONAssert.assertEquals(response.getContentAsString(), animeListJacksonTester.write(animeList).getJson(), true);
+
         verify(animeService, times(1)).getAllAnime();
 
     }
@@ -77,7 +81,25 @@ public class AnimeControllerTest {
                         .andReturn()
                         .getResponse();
 
-        assertThat(response.getContentAsString()).isEqualTo(animeJacksonTester.write(anime).getJson());
+        JSONAssert.assertEquals(response.getContentAsString(), animeJacksonTester.write(anime).getJson(), true);
+
+        verify(animeService, times(1)).getAnime(1);
+
+    }
+
+    @Test
+    public void アニメが取得できないときに例外をthrowすること() throws Exception {
+
+        doThrow(new ResourceNotFoundException("resource not found")).when(animeService).getAnime(1);
+
+        String url = "/api/anime/1";
+        String error = mvc.perform(MockMvcRequestBuilders.get(url)
+                        .accept(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isNotFound())
+                .andReturn()
+                .getResolvedException().getMessage();
+
+        assertThat(error).isEqualTo("resource not found");
 
         verify(animeService, times(1)).getAnime(1);
 
