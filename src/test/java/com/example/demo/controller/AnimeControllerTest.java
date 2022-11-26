@@ -95,9 +95,9 @@ public class AnimeControllerTest {
         String url = "/api/anime/1";
         String error = mvc.perform(MockMvcRequestBuilders.get(url)
                         .accept(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(status().isNotFound())
-                .andReturn()
-                .getResolvedException().getMessage();
+                        .andExpect(status().isNotFound())
+                        .andReturn()
+                        .getResolvedException().getMessage();
 
         assertThat(error).isEqualTo("resource not found");
 
