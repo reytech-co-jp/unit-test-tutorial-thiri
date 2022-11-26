@@ -27,7 +27,7 @@ public class AnimeMapperTest {
     void すべてのアニメが取得できること() {
         List<Anime> animeList = animeMapper.findAll();
         assertThat(animeList)
-            .hasSize(3)
+            .hasSize(4)
             .contains(
                 new Anime(1, "Kill la Kill", "Action"),
                 new Anime(2, "Fairy Tail", "Adventure")
