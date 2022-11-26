@@ -3,16 +3,13 @@ package com.example.demo.controller;
 import com.example.demo.entity.Anime;
 import com.example.demo.service.AnimeService;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -27,9 +24,7 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
-@ExtendWith(SpringExtension.class)
-@AutoConfigureMockMvc
+@WebMvcTest
 @AutoConfigureJsonTesters
 public class AnimeControllerTest {
     @Autowired
@@ -45,7 +40,7 @@ public class AnimeControllerTest {
     private JacksonTester<Anime> animeJacksonTester;
 
     @Test
-    public void getAllAnime() throws Exception {
+    public void アニメが全件取得できること() throws Exception {
 
         List<Anime> animeList = List.of(
                 new Anime(1, "Your Name", "Romantic Fantasy"),
@@ -69,7 +64,7 @@ public class AnimeControllerTest {
     }
 
     @Test
-    public void getAnime() throws Exception {
+    public void アニメが取得できるときに1件アニメを返すこと() throws Exception {
 
         Anime anime = new Anime(1, "Your Name", "Romantic Fantasy");
         doReturn(anime).when(animeService).getAnime(1);
