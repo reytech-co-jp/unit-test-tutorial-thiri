@@ -51,13 +51,6 @@ class AnimeServiceTest {
     }
 
     @Test
-    public void アニメの登録ができること() {
-        doNothing().when(animeMapper).createAnime(any(Anime.class));
-        animeService.registerAnime("name", "genre");
-        verify(animeMapper).createAnime(any(Anime.class));
-    }
-
-    @Test
     public void アニメが更新できること() {
         doReturn(Optional.of(new Anime(1, "abc", "def"))).when(animeMapper).findById(1);
         animeService.updateAnime(1, "Your Name", "Romantic Fantasy");
