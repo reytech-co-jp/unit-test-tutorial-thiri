@@ -122,7 +122,7 @@ public class AnimeControllerTest {
                 .andExpect(status().isCreated())
                 .andReturn().getResponse();
 
-        assertThat("anime successfully created").isEqualTo(response.getContentAsString());
+        assertThat(response.getContentAsString()).isEqualTo("anime successfully created");
 
         verify(animeService, times(1)).registerAnime("Your Name", "Romantic Fantasy");
     }
@@ -140,13 +140,13 @@ public class AnimeControllerTest {
                 .andExpect(status().isCreated())
                 .andReturn().getResponse();
 
-        assertThat("anime successfully updated").isEqualTo(response.getContentAsString());
+        assertThat(response.getContentAsString()).isEqualTo("anime successfully updated");
 
         verify(animeService, times(1)).updateAnime(1, "Kill la Kill", "Action");
     }
 
     @Test
-    public void アニメが更新できないときに例外をthrowすること() throws Exception {
+    public void 更新対象のアニメが存在しないときに例外をthrowすること() throws Exception {
 
         doThrow(new ResourceNotFoundException("resource not found")).when(animeService).updateAnime(1, "Kill la Kill", "Action");
 
@@ -175,13 +175,13 @@ public class AnimeControllerTest {
                 .andExpect(status().isCreated())
                 .andReturn().getResponse();
 
-        assertThat("anime successfully deleted").isEqualTo(response.getContentAsString());
+        assertThat(response.getContentAsString()).isEqualTo("anime successfully deleted");
 
         verify(animeService, times(1)).deleteAnime(1);
     }
 
     @Test
-    public void アニメが削除できないときに例外をthrowすること() throws Exception {
+    public void 削除対象のアニメが存在しないときに例外をthrowすること() throws Exception {
 
         doThrow(new ResourceNotFoundException("resource not found")).when(animeService).deleteAnime(1);
 
