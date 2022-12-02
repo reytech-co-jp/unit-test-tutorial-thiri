@@ -65,7 +65,7 @@ class AnimeServiceTest {
     }
 
     @Test
-    public void アニメが更新できないときに例外をthrowすること() {
+    public void 更新対象のアニメが存在しないときに例外をthrowすること() {
         doReturn(Optional.empty()).when(animeMapper).findById(1);
         assertThatThrownBy(() -> animeService.updateAnime(1,"Your Name", "Romantic Fantasy"))
                 .isInstanceOf(ResourceNotFoundException.class)
@@ -80,7 +80,7 @@ class AnimeServiceTest {
     }
 
     @Test
-    public void アニメが削除できないときに例外をthrowすること() {
+    public void 削除対象のアニメが存在しないときに例外をthrowすること() {
         doReturn(Optional.empty()).when(animeMapper).findById(1);
         assertThatThrownBy(() -> animeService.deleteAnime(1))
                 .isInstanceOf(ResourceNotFoundException.class)

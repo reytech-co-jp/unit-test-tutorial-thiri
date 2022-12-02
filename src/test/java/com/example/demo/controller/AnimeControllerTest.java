@@ -146,7 +146,7 @@ public class AnimeControllerTest {
     }
 
     @Test
-    public void 更新対象のアニメが存在しないときに例外をthrowすること() throws Exception {
+    public void 更新対象のアニメが存在しないときにレスポンスボディにエラーメッセージが返されること() throws Exception {
 
         doThrow(new ResourceNotFoundException("resource not found")).when(animeService).updateAnime(1, "Kill la Kill", "Action");
 
@@ -181,7 +181,7 @@ public class AnimeControllerTest {
     }
 
     @Test
-    public void 削除対象のアニメが存在しないときに例外をthrowすること() throws Exception {
+    public void 削除対象のアニメが存在しないときにレスポンスボディにエラーメッセージが返されること() throws Exception {
 
         doThrow(new ResourceNotFoundException("resource not found")).when(animeService).deleteAnime(1);
 
