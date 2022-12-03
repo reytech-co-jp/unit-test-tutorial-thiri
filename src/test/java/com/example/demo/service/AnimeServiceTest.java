@@ -14,7 +14,6 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
@@ -52,16 +51,16 @@ class AnimeServiceTest {
 
     @Test
     public void アニメの登録ができること() {
-        doNothing().when(animeMapper).createAnime(any(Anime.class));
+        doNothing().when(animeMapper).createAnime(new Anime("name", "genre"));
         animeService.registerAnime("name", "genre");
-        verify(animeMapper).createAnime(any(Anime.class));
+        verify(animeMapper).createAnime(new Anime("name", "genre"));
     }
 
     @Test
     public void アニメが更新できること() {
         doReturn(Optional.of(new Anime(1, "abc", "def"))).when(animeMapper).findById(1);
         animeService.updateAnime(1, "Your Name", "Romantic Fantasy");
-        verify(animeMapper).updateAnime(any(Anime.class));
+        verify(animeMapper).updateAnime(new Anime(1, "Your Name", "Romantic Fantasy"));
     }
 
     @Test
