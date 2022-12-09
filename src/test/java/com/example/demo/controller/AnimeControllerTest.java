@@ -4,6 +4,7 @@ import com.example.demo.entity.Anime;
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.service.AnimeService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.JSONException;
 import org.junit.jupiter.api.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.List;
 
+import static net.javacrumbs.jsonunit.assertj.JsonAssert.assertThatJson;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Mockito.*;
@@ -65,7 +67,7 @@ public class AnimeControllerTest {
 
         assertThat(response.getContentAsString()).isEqualTo(animeListJacksonTester.write(animeList).getJson());
 
-        JSONAssert.assertEquals(response.getContentAsString(), animeListJacksonTester.write(animeList).getJson(), true);
+        assertThatJson(response.getContentAsString()).isEqualTo(animeListJacksonTester.write(animeList).getJson());
 
         verify(animeService, times(1)).getAllAnime();
 
@@ -85,7 +87,7 @@ public class AnimeControllerTest {
                         .andReturn()
                         .getResponse();
 
-        JSONAssert.assertEquals(response.getContentAsString(), animeJacksonTester.write(anime).getJson(), true);
+        assertThatJson(response.getContentAsString()).isEqualTo(animeJacksonTester.write(anime).getJson());
 
         verify(animeService, times(1)).getAnime(1);
 
@@ -195,6 +197,26 @@ public class AnimeControllerTest {
         assertThat(error).isEqualTo("resource not found");
 
         verify(animeService, times(1)).deleteAnime(1);
+    }
+
+    //例のjsonフォーマットで試してみる
+    @Test
+    public void test() throws JSONException {
+        String json1 = """
+            {
+                "key1": "value1",
+                "key2": "value2"
+            }
+            """;
+
+        String json2 = """
+            {
+                "key2": "value2",
+                "key1": "value1"
+            }
+            """;
+
+        assertThatJson(json1).isEqualTo(json2);
     }
 
 }
