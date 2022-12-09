@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.json.JacksonTester;
+import org.springframework.boot.test.json.JsonContentAssert;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -217,6 +218,8 @@ public class AnimeControllerTest {
             """;
 
         assertThatJson(json1).isEqualTo(json2);
+        JsonContentAssert jsonContentAssert = new JsonContentAssert(this.getClass(),json1);
+        jsonContentAssert.isEqualTo(json2);
     }
 
 }
