@@ -4,14 +4,11 @@ import com.example.demo.entity.Anime;
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.service.AnimeService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.json.JSONException;
 import org.junit.jupiter.api.Test;
-import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.json.JacksonTester;
-import org.springframework.boot.test.json.JsonContentAssert;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -65,8 +62,6 @@ public class AnimeControllerTest {
                         .andExpect(jsonPath("$[0].name", is(animeList.get(0).getName())))
                         .andReturn()
                         .getResponse();
-
-        assertThat(response.getContentAsString()).isEqualTo(animeListJacksonTester.write(animeList).getJson());
 
         assertThatJson(response.getContentAsString()).isEqualTo(animeListJacksonTester.write(animeList).getJson());
 
