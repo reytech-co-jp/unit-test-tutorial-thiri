@@ -200,26 +200,4 @@ public class AnimeControllerTest {
         verify(animeService, times(1)).deleteAnime(1);
     }
 
-    //例のjsonフォーマットで試してみる
-    @Test
-    public void test() throws JSONException {
-        String json1 = """
-            {
-                "key1": "value1",
-                "key2": "value2"
-            }
-            """;
-
-        String json2 = """
-            {
-                "key2": "value2",
-                "key1": "value1"
-            }
-            """;
-
-        assertThatJson(json1).isEqualTo(json2);
-        JsonContentAssert jsonContentAssert = new JsonContentAssert(this.getClass(),json1);
-        jsonContentAssert.isEqualTo(json2);
-    }
-
 }
