@@ -5,7 +5,6 @@ import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.service.AnimeService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
-import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -18,6 +17,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.List;
 
+import static net.javacrumbs.jsonunit.assertj.JsonAssert.assertThatJson;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Mockito.*;
@@ -63,9 +63,7 @@ public class AnimeControllerTest {
                         .andReturn()
                         .getResponse();
 
-        assertThat(response.getContentAsString()).isEqualTo(animeListJacksonTester.write(animeList).getJson());
-
-        JSONAssert.assertEquals(response.getContentAsString(), animeListJacksonTester.write(animeList).getJson(), true);
+        assertThatJson(response.getContentAsString()).isEqualTo(animeListJacksonTester.write(animeList).getJson());
 
         verify(animeService, times(1)).getAllAnime();
 
@@ -85,7 +83,7 @@ public class AnimeControllerTest {
                         .andReturn()
                         .getResponse();
 
-        JSONAssert.assertEquals(response.getContentAsString(), animeJacksonTester.write(anime).getJson(), true);
+        assertThatJson(response.getContentAsString()).isEqualTo(animeJacksonTester.write(anime).getJson());
 
         verify(animeService, times(1)).getAnime(1);
 
