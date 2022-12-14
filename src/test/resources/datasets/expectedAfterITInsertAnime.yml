@@ -1,0 +1,12 @@
+anime:
+  - id: 1
+    name: "Kill la Kill"
+    genre: "Action"
+
+  - id: 2
+    name: "Fairy Tail"
+    genre: "Adventure"
+
+  - id: 3
+    name: "Gintama"
+    genre: "Comedy"
