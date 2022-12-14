@@ -134,7 +134,7 @@ public class AnimeIntegrationTest {
 
     @Test
     @DataSet(value = "datasets/anime.yml")
-    @ExpectedDataSet(value = "datasets/expectedAfterUpdateAnime.yml", ignoreCols = "id")
+    @ExpectedDataSet(value = "datasets/expectedAfterUpdateAnime.yml")
     void アニメが更新できること() throws Exception {
         String url = "/api/anime/1";
         MockHttpServletResponse response = mvc.perform(MockMvcRequestBuilders.patch(url)
@@ -185,7 +185,7 @@ public class AnimeIntegrationTest {
 
     @Test
     @DataSet(value = "datasets/anime.yml")
-    @ExpectedDataSet(value = "datasets/expectedAfterDeleteAnime.yml", ignoreCols = "id")
+    @ExpectedDataSet(value = "datasets/expectedAfterDeleteAnime.yml")
     void アニメが削除できること() throws Exception {
         String url = "/api/anime/1";
         MockHttpServletResponse response = mvc.perform(MockMvcRequestBuilders.delete(url)
