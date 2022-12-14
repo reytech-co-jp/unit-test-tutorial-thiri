@@ -153,7 +153,7 @@ public class AnimeIntegrationTest {
 
     @Test
     @DataSet(value = "datasets/anime.yml")
-    void アニメが更新できないときにレスポンスボディにエラーjsonが返されること() throws Exception {
+    void 更新時に指定したIDのアニメが存在しない場合404エラーとなりエラーのレスポンスを返すこと() throws Exception {
         try (MockedStatic<ZonedDateTime> zonedDateTimeMockedStatic = Mockito.mockStatic(ZonedDateTime.class)) {
             zonedDateTimeMockedStatic.when(ZonedDateTime::now).thenReturn(zonedDateTime);
             String url = "/api/anime/99";
@@ -198,7 +198,7 @@ public class AnimeIntegrationTest {
 
     @Test
     @DataSet(value = "datasets/anime.yml")
-    void アニメが削除できないときにレスポンスボディにエラーjsonが返されること() throws Exception {
+    void 削除時に指定したIDのアニメが存在しない場合404エラーとなりエラーのレスポンスを返すこと() throws Exception {
         try (MockedStatic<ZonedDateTime> zonedDateTimeMockedStatic = Mockito.mockStatic(ZonedDateTime.class)) {
             zonedDateTimeMockedStatic.when(ZonedDateTime::now).thenReturn(zonedDateTime);
             String url = "/api/anime/99";
